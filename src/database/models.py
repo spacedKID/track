@@ -39,7 +39,7 @@ class Entry(Base):
     value = Column(String)  # Storing as string for simplicity; you might convert based on data_type
 
 # Initialize the database connection (e.g., for SQLite)
-engine = create_engine('sqlite:///my_tracking_app.db', echo=True)
+engine = create_engine('sqlite:///track.db', echo=True)
 
 # Create all tables
 Base.metadata.create_all(engine)
