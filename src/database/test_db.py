@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Category, SubCategory, TrackableObject, Entry
 import datetime
+import random
 
 # Replace 'sqlite:///my_tracking_app.db' with your actual database URI
 engine = create_engine('sqlite:///track.db')
@@ -55,6 +56,52 @@ def query_test_data():
     for trackable_object in trackable_objects:
         print(f"- {trackable_object.name} (Sub-Category: {trackable_object.sub_category.name}, Data Type: {trackable_object.data_type})")
 
+def insert_entries():
+    # Fetch TrackableObjects by name
+    calories_obj = session.query(TrackableObject).filter_by(name="Calories").first()
+    miles_run_obj = session.query(TrackableObject).filter_by(name="Miles Run").first()
+    hours_worked_obj = session.query(TrackableObject).filter_by(name="Hours Worked").first()
+
+    # Generate 5 entries for each TrackableObject with random data
+    for _ in range(5):
+        entry_calories = Entry(
+            category_id=calories_obj.sub_category.category_id,
+            sub_category_id=calories_obj.sub_category_id,
+            trackable_object_id=calories_obj.id,
+            value=str(random.randint(1000, 3000))  # Calories
+        )
+        entry_miles_run = Entry(
+            category_id=miles_run_obj.sub_category.category_id,
+            sub_category_id=miles_run_obj.sub_category_id,
+            trackable_object_id=miles_run_obj.id,
+            value=str(random.uniform(1.0, 10.0))  # Miles Run
+        )
+        entry_hours_worked = Entry(
+            category_id=hours_worked_obj.sub_category.category_id,
+            sub_category_id=hours_worked_obj.sub_category_id,
+            trackable_object_id=hours_worked_obj.id,
+            value=str(random.uniform(0.5, 12.0))  # Hours Worked
+        )
+        session.add_all([entry_calories, entry_miles_run, entry_hours_worked])
+
+    session.commit()
+
+def query_entries():
+    # Query and print Entries with full details
+    entries = session.query(Entry).all()
+    print("\nEntries:")
+    for entry in entries:
+        # Fetch the trackable object, sub-category, and category for each entry
+        trackable_object = session.query(TrackableObject).filter_by(id=entry.trackable_object_id).first()
+        sub_category = session.query(SubCategory).filter_by(id=trackable_object.sub_category_id).first()
+        category = session.query(Category).filter_by(id=sub_category.category_id).first()
+
+        # Print full path details
+        print(f"{entry.datetime} | {category.name} > {sub_category.name} > "
+              f"{trackable_object.name} = {entry.value}")
+
 if __name__ == "__main__":
-    insert_test_data()
-    query_test_data()
+    insert_test_data()  # Ensure test data is present
+    insert_entries()  # Insert entries with random data
+    query_test_data()  # Query and print Categories, Sub-Categories, and Trackable Objects
+    query_entries()  # Query and print Entries
