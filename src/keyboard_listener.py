@@ -1,14 +1,14 @@
 from pynput import keyboard
 
 def on_activate():
-    print("Shortcut CMD+OPTION+T activated")
+    print("Shortcut CTRL+OPTION+T activated")
     # Here you will call your function to activate the GUI
 
 def for_canonical(f):
     return lambda k: f(l.canonical(k))
 
 hotkey = keyboard.HotKey(
-    keyboard.HotKey.parse('<cmd>+<alt>+t'),
+    keyboard.HotKey.parse('<ctrl>+<alt>+t'),
     on_activate
 )
 
