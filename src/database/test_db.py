@@ -4,17 +4,12 @@ from models import Base, Category, SubCategory, TrackableObject, Entry
 import datetime
 import random
 
-'''
+# !! includes lines deleting existing data -- run at your own risk !!
 
-!! includes lines deleting existing data -- run at your own risk !!
+# creates two categories, three sub_categories, and three trackable_objects
+# populates N rows in entries table for each of three trackable objects
+# prints those table entries for visual inspection
 
-creates two categories, three sub_categories, and three trackable_objects
-populates N rows in entries table for each of three trackable objects
-prints those table entries for visual inspection
-
-'''
-
-# Replace 'sqlite:///my_tracking_app.db' with your actual database URI
 engine = create_engine('sqlite:///track.db')
 Session = sessionmaker(bind=engine)
 session = Session()
