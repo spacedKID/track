@@ -43,7 +43,7 @@ class Entry(Base):
 engine = create_engine('sqlite:///track.db', echo=True)
 
 Session = sessionmaker(bind=engine)
-session = Session()
+# session = Session()
 
 # Create all tables
 Base.metadata.create_all(engine)
