@@ -5,6 +5,7 @@ import datetime
 
 Base = declarative_base()
 
+
 class Category(Base):
     __tablename__ = 'categories'
     id = Column(Integer, primary_key=True)
@@ -40,6 +41,9 @@ class Entry(Base):
 
 # Initialize the database connection (e.g., for SQLite)
 engine = create_engine('sqlite:///track.db', echo=True)
+
+Session = sessionmaker(bind=engine)
+session = Session()
 
 # Create all tables
 Base.metadata.create_all(engine)

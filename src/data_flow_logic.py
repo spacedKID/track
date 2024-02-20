@@ -1,4 +1,8 @@
-from models import Session, Category, SubCategory, TrackableObject
+from .database.models import Session, Category, SubCategory, TrackableObject
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+
 
 def get_categories():
     session = Session()
