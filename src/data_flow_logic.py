@@ -1,4 +1,4 @@
-from .database.models import Session, Category, SubCategory, TrackableObject, Entry
+from database.models import Session, Category, SubCategory, TrackableObject, Entry
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

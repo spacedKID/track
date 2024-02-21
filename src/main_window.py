@@ -1,5 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QLineEdit, QLabel, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QRadioButton, QButtonGroup, QVBoxLayout, QPushButton, QLineEdit, QLabel, QHBoxLayout
+from data_flow_logic import get_categories
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -14,6 +15,19 @@ class MainWindow(QMainWindow):
         self.mainLayout = QVBoxLayout()
         self.centralWidget.setLayout(self.mainLayout)
         
+        # Initialize category selection
+        self.categroyGroup = QButtonGroup(self.centralWidget) # Group for radio buttons
+        self.categoriesLayout = QVBoxLayout()
+
+        categories = get_categories()
+        for category_id, category_name in categories:
+            radioButton = QRadioButton(category_name)
+            self.categroyGroup.addButton(radioButton, category_id) # Assign ID for identification
+            self.categoriesLayout.addWidget(radioButton)
+
+        # Add the categories layout to the main layout
+        self.mainLayout.addLayout(self.categoriesLayout)
+
         self.categoryPlaceholder = QLabel('Category Selector Placeholder')
         self.subCategoryPlaceholder = QLabel('Sub-Category Selector Placeholder')
         self.trackableObjectPlaceholder = QLabel('Trackable Object Selector Placeholder')
