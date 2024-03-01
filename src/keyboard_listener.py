@@ -1,7 +1,9 @@
 from pynput import keyboard
+from main_window import launch_main_window
 
 def on_activate():
     print("Shortcut CTRL+OPTION+T activated")
+    launch_main_window()
     # Here you will call your function to activate the GUI
 
 def for_canonical(f):
