@@ -2,8 +2,8 @@
 
 # Define paths and names
 APP_NAME="track"
-APP_LAUNCH_AGENT="/Library/LaunchAgents/$APP_NAME.plist"
-APP_SCRIPT="~/Repos/git/track/src/keyboard_listener.py"
+APP_LAUNCH_AGENT="$HOME/Library/LaunchAgents/$APP_NAME.plist"
+APP_SCRIPT="$HOME/Repos/git/track/src/keyboard_listener.py"
 
 # Create a Launch Agent for the application
 cat << EOF > $APP_LAUNCH_AGENT
